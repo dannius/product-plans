@@ -1,0 +1,14 @@
+<div class="plan-details">
+  <h2 class="mb-3">{{ subscription.name }}</h2>
+  <ul class="pl-4 mt-0 mb-5">
+    <li *ngFor="let feature of subscription.features" class="mb-1">{{ feature }}</li>
+  </ul>
+
+  <div *ngFor="let plan of subscription.plans; let index = index">
+    <button *ngIf="index % 2 === 0; else accent" class="w-100 mb-3" mat-raised-button color="primary">{{ plan.interval || plan.paymentInterval }} - {{ plan.priceCents | currency:plan.currency }}</button>
+
+    <ng-template #accent>
+      <button class="w-100 mb-3" mat-raised-button color="accent">{{ plan.interval || plan.paymentInterval }} - {{ plan.priceCents | currency:plan.currency }}</button>
+    </ng-template>
+  </div>
+</div>
