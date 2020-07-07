@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ISubscription } from '@lib/models';
 
 @Component({
   selector: 'app-subscribtion',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./subscribtion.view.scss'],
 })
 export class SubscribtionView implements OnInit {
+  public subscriptions: ISubscription[];
 
-  constructor() { }
+  constructor(
+    private _route: ActivatedRoute,
+  ) { }
 
   ngOnInit() {
+    this.subscriptions = this._route.snapshot.data.subscriptions.products;
   }
 
 }
