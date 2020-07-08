@@ -1,2 +1,6 @@
 <app-header></app-header>
 <router-outlet></router-outlet>
+
+<div *ngIf="loaderSvc.isLoading | async" [@simpleFadeAnimation]="'in'"  class="loader">
+  <mat-spinner></mat-spinner>
+</div>
