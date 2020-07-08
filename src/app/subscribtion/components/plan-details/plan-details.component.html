@@ -5,10 +5,18 @@
   </ul>
 
   <div *ngFor="let plan of subscription.plans; let index = index">
-    <button *ngIf="index % 2 === 0; else accent" class="w-100 mb-3" mat-raised-button color="primary">{{ plan.interval || plan.paymentInterval }} - {{ plan.priceCents | currency:plan.currency }}</button>
+    <button
+      *ngIf="index % 2 === 0; else accent"
+      (click)="close(subscription, plan)"
+      class="w-100 mb-3"
+      mat-raised-button
+      color="primary"
+    >
+      {{ plan.interval || plan.paymentInterval }} - {{ plan.priceCents | currency:plan.currency }}
+    </button>
 
     <ng-template #accent>
-      <button class="w-100 mb-3" mat-raised-button color="accent">{{ plan.interval || plan.paymentInterval }} - {{ plan.priceCents | currency:plan.currency }}</button>
+      <button (click)="close(subscription, plan)" class="w-100 mb-3" mat-raised-button color="accent">{{ plan.interval || plan.paymentInterval }} - {{ plan.priceCents | currency:plan.currency }}</button>
     </ng-template>
   </div>
 </div>

@@ -1,9 +1,12 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ISubscription } from '@lib/models';
 import { PlanDetailsComponent } from '../plan-details/plan-details.component';
 
+@UntilDestroy()
 @Component({
   selector: 'app-plan-card',
   templateUrl: './plan-card.component.html',
@@ -17,6 +20,7 @@ export class PlanCardComponent {
 
   constructor(
     private _dialogSvc: MatDialog,
+    private _snackbarSvc: MatSnackBar,
   ) {}
 
   public showPlan() {
@@ -24,6 +28,15 @@ export class PlanCardComponent {
       data: {
         subscription: this.subscription,
       }
+    })
+    .afterClosed()
+    .pipe(untilDestroyed(this))
+    .subscribe(data => {
+      if (!data) {
+        return;
+      }
+
+      this._snackbarSvc.open(`${data.subscription.name} ${data.plan.interval || data.plan.paymentInterval} booked successfully`)
     })
   }
 }

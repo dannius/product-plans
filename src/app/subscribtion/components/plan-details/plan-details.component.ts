@@ -1,7 +1,7 @@
 import { Component, Input, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { ISubscription } from '@lib/models';
+import { ISubscription, IPlan } from '@lib/models';
 
 @Component({
   selector: 'app-plan-details',
@@ -20,5 +20,9 @@ export class PlanDetailsComponent implements OnInit {
 
   public ngOnInit() {
     this.subscription = this.data.subscription;
+  }
+
+  public close(subscription: ISubscription, plan: IPlan) {
+    this.dialogRef.close({ subscription, plan })
   }
 }
